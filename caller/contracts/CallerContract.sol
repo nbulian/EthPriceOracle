@@ -1,8 +1,9 @@
-pragma solidity 0.5.0;
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
 import "./EthPriceOracleInterface.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/access/Ownable.sol";
 contract CallerContract is Ownable {
-    uint256 private ethPrice;
+    uint256 private _ethPrice;
     EthPriceOracleInterface private oracleInstance;
     address private oracleAddress;
     mapping(uint256=>bool) myRequests;
@@ -19,9 +20,9 @@ contract CallerContract is Ownable {
       myRequests[id] = true;
       emit ReceivedNewRequestIdEvent(id);
     }
-    function callback(uint256 _ethPrice, uint256 _id) public onlyOracle {
+    function callback(uint256 __ethPrice, uint256 _id) public onlyOracle {
       require(myRequests[_id], "This request is not in my pending list.");
-      ethPrice = _ethPrice;
+      _ethPrice = __ethPrice;
       delete myRequests[_id];
       emit PriceUpdatedEvent(_ethPrice, _id);
     }

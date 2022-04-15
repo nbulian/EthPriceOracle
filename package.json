@@ -4,7 +4,10 @@
   "description": "A simple DeFi dapp that gives the users the ability to withdraw ETH worth a certain amount of USD, using Binance API &amp; Oracles.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:oracle": "cd oracle && npx truffle migrate --network extdev --reset -all && cd ..",
+    "deploy:caller": "cd caller && npx truffle migrate --network extdev --reset -all && cd ..",
+    "deploy:all": "npm run deploy:oracle && npm run deploy:caller"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "bn.js": "^5.2.0",
+    "dotenv": "^16.0.0",
     "loom-js": "^1.55.0",
     "loom-truffle-provider": "^0.13.0",
     "openzeppelin-solidity": "^4.5.0",

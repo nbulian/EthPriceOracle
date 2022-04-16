@@ -1,6 +1,6 @@
+require('dotenv').config();
 const common = require('./utils/common.js')
 const SLEEP_INTERVAL = process.env.SLEEP_INTERVAL || 2000
-const PRIVATE_KEY_FILE_NAME = process.env.PRIVATE_KEY_FILE || './caller/caller_private_key'
 const CallerJSON = require('./caller/build/contracts/CallerContract.json')
 const OracleJSON = require('./oracle/build/contracts/EthPriceOracle.json')
 
@@ -31,7 +31,7 @@ async function filterEvents(callerContract) {
 }
 
 async function init() {
-    const { ownerAddress, web3js, client } = common.loadAccount(PRIVATE_KEY_FILE_NAME)
+    const { ownerAddress, web3js, client } = common.loadAccount(process.env.CALLER_KEY)
     const callerContract = await getCallerContract(web3js)
     filterEvents(callerContract)
     return { callerContract, ownerAddress, client, web3js }

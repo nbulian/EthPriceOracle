@@ -1,11 +1,9 @@
-const fs = require('fs')
 const Web3 = require('web3')
 const { Client, NonceTxMiddleware, SignedTxMiddleware, LocalAddress, CryptoUtils, LoomProvider } = require('loom-js')
 
-function loadAccount(privateKeyFileName) {
+function loadAccount(key) {
     const extdevChainId = 'extdev-plasma-us1'
-    const privateKeyStr = fs.readFileSync(privateKeyFileName, 'utf-8')
-    const privateKey = CryptoUtils.B64ToUint8Array(privateKeyStr)
+    const privateKey = CryptoUtils.B64ToUint8Array(key)
     const publicKey = CryptoUtils.publicKeyFromPrivateKey(privateKey)
     const client = new Client(
         extdevChainId,
